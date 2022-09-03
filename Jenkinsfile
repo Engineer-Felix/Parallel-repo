@@ -1,6 +1,11 @@
 pipeline{
 	agent any
 	stages{
+	  stage('git-clone'){
+	    steps{
+	    checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-Jenkins', url: 'https://github.com/Engineer-Felix/Parallel-repo.git']]])
+	    }
+	  }
       stage('parallel-level'){
         parallel {
           stage('sub-job1'){
